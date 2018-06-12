@@ -1,10 +1,14 @@
-FROM ubuntu:16.04
+FROM python:3-slim-jessie
 LABEL maintainer="kevin@meredithkm.info"
 
-ENV DJANGO_SETTINGS_MODULE=local_settings
+RUN mkdir /static
+RUN mkdir /upload
 
-RUN apt-get update 
-RUN apt-get install -y git python3-pip vim
+RUN DEBIAN_FRONTEND=noninteractive apt-get update \
+    && apt-get install -y --no-install-recommends git python3 python3-pip \
+    && rm -rf /tmp/* /var/tmp/* \
+    && rm -rf /var/lib/apt/lists/*
+
 RUN git clone https://github.com/nsupdate-info/nsupdate.info.git nsupdate
 
 COPY ./build/bin/pip /bin/pip
@@ -13,3 +17,5 @@ WORKDIR /nsupdate
 
 RUN pip install -r requirements.d/prod.txt
 RUN pip install -e .
+
+VOLUME /static
