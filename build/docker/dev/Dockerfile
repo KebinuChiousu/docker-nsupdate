@@ -17,3 +17,6 @@ WORKDIR /nsupdate
 
 RUN pip install -r requirements.d/dev.txt
 RUN pip install -e .
+
+VOLUME /static
+VOLUME /upload

@@ -19,3 +19,4 @@ RUN pip install -r requirements.d/prod.txt
 RUN pip install -e .
 
 VOLUME /static
+VOLUME /upload
