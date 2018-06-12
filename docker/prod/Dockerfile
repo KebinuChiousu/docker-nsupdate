@@ -1,4 +1,4 @@
-FROM meredithkm/nsupdate:prod
+FROM meredithkm/nsupdate:build
 LABEL maintainer="kevin@meredithkm.info"
 
 ENV DJANGO_SETTINGS_MODULE=local_settings
