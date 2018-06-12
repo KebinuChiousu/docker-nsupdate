@@ -1,4 +1,4 @@
-from nsupdate.settings.dev import *
+from nsupdate.settings.prod import *
 
 STATIC_ROOT='/static'
 MEDIA_ROOT='/upload'
