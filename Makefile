@@ -3,14 +3,11 @@ TAG=nsupdate
 VER=0.0.1
 
 dev:
-	docker build -t $(MAINTAINER)/$(TAG):$(VER)-dev --rm -f ./build/docker/dev/Dockerfile .
+	docker build --build-arg BUILD=dev -t $(MAINTAINER)/$(TAG):$(VER)-dev --rm -f ./build/Dockerfile .
 	docker tag $(MAINTAINER)/$(TAG):$(VER)-dev $(MAINTAINER)/$(TAG):dev
-	docker build -t $(MAINTAINER)/$(TAG)-dev:latest --rm -f ./docker/dev/Dockerfile .
 
 prod:
-	docker build -t $(MAINTAINER)/$(TAG):$(VER) --rm -f ./build/docker/prod/Dockerfile .
-	docker tag $(MAINTAINER)/$(TAG):$(VER) $(MAINTAINER)/$(TAG):build
-	docker build -t $(MAINTAINER)/$(TAG):prod --rm -f ./docker/prod/Dockerfile .
+	docker build --build-arg BUILD=prod -t $(MAINTAINER)/$(TAG):$(VER) --rm -f ./build/docker/prod/Dockerfile .
 
 tag_latest: 
 	docker tag $(MAINTAINER)/$(TAG):$(VER) $(MAINTAINER)/$(TAG):latest
