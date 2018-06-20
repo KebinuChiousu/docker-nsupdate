@@ -19,6 +19,7 @@ release:
 	docker push $(MAINTAINER)/$(TAG):$(VER)
 	docker push $(MAINTAINER)/$(TAG):$(VER)-dev
 	docker push $(MAINTAINER)/$(TAG):latest
+	docker push $(MAINTAINER)/$(TAG):dev
 	@echo "*** Don't forget to create a tag by creating an official GitHub release."
 
 test:
