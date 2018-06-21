@@ -6,6 +6,7 @@ MEDIA_ROOT='/upload'
 SECRET_KEY = '{{ getenv "SECRET_KEY" }}'
 BASEDOMAIN = '{{ getenv "BASEDOMAIN" }}'
 WWW_HOST='{{ getenv "WWW_HOST" }}'
+REGISTRATION_OPEN='{{ getenv "REGISTER" }}'
 
 ALLOWED_HOSTS=['localhost', '127.0.0.1', '[::1]', '{{ getenv "BASEDOMAIN" }}']
 
