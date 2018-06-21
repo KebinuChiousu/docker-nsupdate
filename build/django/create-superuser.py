@@ -1,6 +1,9 @@
+# Title:   create-superuser.py
+# Link:    https://gist.github.com/c00kiemon5ter/7806c1eac8c6a3e82f061ec32a55c702
+# License: None (Public Domain)
+
 from django.contrib.auth.management.commands import createsuperuser
 from django.core.management import CommandError
-
 
 class Command(createsuperuser.Command):
     help = 'Create a superuser with a password non-interactively'
