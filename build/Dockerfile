@@ -14,6 +14,7 @@ ENV DJANGO_SUPERPASS=S3cr3t
 ENV DJANGO_EMAIL=django@nsupdate.localdomain
 ENV SECRET_KEY=S3cr3t
 ENV BASEDOMAIN=nsupdate.localdomain
+ENV WWW_HOST=$BASEDOMAIN
 
 RUN mkdir /static
 RUN mkdir /upload
