@@ -4,6 +4,6 @@
 
 python3 manage.py collectstatic
 python3 manage.py migrate
-python3 manage.py createsuperuser --preserve --username $DJANGO_SUPERUSER --password $DJANGO_SUPERPASS
+python3 manage.py create-superuser --preserve --username $DJANGO_SUPERUSER --password $DJANGO_SUPERPASS --email $DJANGO_EMAIL
 
 uwsgi --uid=www-data --gid=www-data --ini uwsgi.ini

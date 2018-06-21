@@ -11,6 +11,7 @@ ENV UWSGI_INI /nsupdate/uwsgi.ini
 ENV DJANGO_SETTINGS_MODULE=local_settings
 ENV DJANGO_SUPERUSER=django
 ENV DJANGO_SUPERPASS=S3cr3t
+ENV DJANGO_EMAIL=django@nsupdate.localdomain
 ENV SECRET_KEY=S3cr3t
 ENV BASEDOMAIN=nsupdate.localdomain
 
@@ -49,6 +50,9 @@ RUN chmod a+x /var/local/docker-entrypoint.sh
 # Clone latest version of nsupdate from GitHub
 RUN git clone https://github.com/nsupdate-info/nsupdate.info.git nsupdate
 
+#Allow superuser for django to be created via script instead of interactive
+ADD build/django/create-superuser.py /nsupdate/nsupdate/management/commands/create-superuser.py
+
 # Install easy-install wrapper scripts
 COPY ./build/bin/pip /bin/pip
 
@@ -59,9 +63,6 @@ RUN python3 setup.py bdist_wheel
 RUN pip install psycopg2 uwsgi
 RUN pip install -r requirements.d/$BUILD.txt
 RUN pip install -e .
-
-#Allow superuser for django to be created via script instead of interactive
-ADD build/django/create_superuser_with_password.py /nsupdate/nsupdata/management/commands/create_superuser_with_password.py
 
 # Add uwsgi ini file
 ADD build/uwsgi.ini uwsgi.ini
