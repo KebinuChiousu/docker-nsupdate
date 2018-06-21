@@ -25,7 +25,7 @@ class Command(createsuperuser.Command):
 
         if not password or not username or not email:
             raise CommandError(
-                    "--username, --password, and email are required options")
+                    "--username, --password, and --email are required options")
 
         if username and options.get('preserve'):
             exists = self.UserModel._default_manager.db_manager(database).filter(username=username).exists()
