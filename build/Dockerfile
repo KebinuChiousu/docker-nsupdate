@@ -12,10 +12,9 @@ ENV DJANGO_SETTINGS_MODULE=local_settings
 ENV DJANGO_SUPERUSER=django
 ENV DJANGO_SUPERPASS=S3cr3t
 ENV DJANGO_EMAIL=django@nsupdate.localdomain
+ENV SERVICE_CONTACT=hostmaster@nsupdate.localdomain
 ENV SECRET_KEY=S3cr3t
 ENV BASEDOMAIN=nsupdate.localdomain
-ENV WWW_HOST=$BASEDOMAIN
-ENV REGISTER=False
 
 RUN mkdir /static
 RUN mkdir /upload

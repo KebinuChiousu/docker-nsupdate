@@ -6,6 +6,8 @@ UWSGI_GID=$(shell id -g www-data)
 
 all: dev prod test
 
+build: dev prod
+
 dev:
 	docker build --build-arg BUILD=dev --build-arg uwsgi_uid=$(UWSGI_UID) --build-arg uwsgi_gid=$(UWSGI_GID) -t $(MAINTAINER)/$(TAG):$(VER)-dev --rm -f ./build/Dockerfile .
 	docker tag $(MAINTAINER)/$(TAG):$(VER)-dev $(MAINTAINER)/$(TAG):dev
