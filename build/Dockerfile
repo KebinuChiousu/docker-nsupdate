@@ -9,6 +9,8 @@ ENV BUILD=$BUILD
 ENV DOCKER_CONTAINER=1
 ENV UWSGI_INI /nsupdate/uwsgi.ini
 ENV DJANGO_SETTINGS_MODULE=local_settings
+ENV DJANGO_SUPERUSER=django
+ENV DJANGO_SUPERPASS=S3cr3t
 ENV SECRET_KEY=S3cr3t
 ENV BASEDOMAIN=nsupdate.localdomain
 
@@ -58,6 +60,10 @@ RUN pip install psycopg2 uwsgi
 RUN pip install -r requirements.d/$BUILD.txt
 RUN pip install -e .
 
+#Allow superuser for django to be created via script instead of interactive
+ADD build/django/create_superuser_with_password.py /nsupdate/nsupdata/management/commands/create_superuser_with_password.py
+
+# Add uwsgi ini file
 ADD build/uwsgi.ini uwsgi.ini
 
 # Copy the permission script.
@@ -66,8 +72,11 @@ COPY build/setup.sh /
 # Launch setup.sh
 RUN bash /setup.sh "${uwsgi_uid}" "${uwsgi_gid}"
 
+VOLUME /nsupdate
 VOLUME /static
 VOLUME /upload
 VOLUME /var/run/uwsgi
+
+EXPOSE 3031
 
 ENTRYPOINT ["/var/local/docker-entrypoint.sh"]
