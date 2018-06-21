@@ -2,7 +2,11 @@ FROM debian:stable-slim
 LABEL maintainer="kevin@meredithkm.info"
 
 ARG BUILD=prod
+ARG uwsgi_uid=700
+ARG uwsgi_gid=700
 
+ENV BUILD=$BUILD
+ENV DOCKER_CONTAINER=1
 ENV UWSGI_INI /nsupdate/uwsgi.ini
 ENV DJANGO_SETTINGS_MODULE=local_settings
 ENV SECRET_KEY=S3cr3t
@@ -10,6 +14,7 @@ ENV BASEDOMAIN=nsupdate.localdomain
 
 RUN mkdir /static
 RUN mkdir /upload
+RUN mkdir /var/run/uwsgi
 
 # Install python3 and pip
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
@@ -18,9 +23,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
        python3 \ 
        python3-setuptools \ 
        python3-pip \ 
+       python3-dev \ 
        build-essential \ 
-       gcc \ 
-       libpython3.5-dev \ 
+       libpcre3 \ 
+       libpcre3-dev \ 
     && rm -rf /tmp/* /var/tmp/* \
     && rm -rf /var/lib/apt/lists/*
 
@@ -54,7 +60,14 @@ RUN pip install -e .
 
 ADD build/uwsgi.ini uwsgi.ini
 
+# Copy the permission script.
+COPY build/setup.sh /
+
+# Launch setup.sh
+RUN bash /setup.sh "${uwsgi_uid}" "${uwsgi_gid}"
+
 VOLUME /static
 VOLUME /upload
+VOLUME /var/run/uwsgi
 
 ENTRYPOINT ["/var/local/docker-entrypoint.sh"]

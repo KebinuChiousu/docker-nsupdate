@@ -3,8 +3,8 @@ from nsupdate.settings.{{getenv "BUILD"}} import *
 STATIC_ROOT='/static'
 MEDIA_ROOT='/upload'
 
-SECRET_KEY = {{ getenv "SECRET_KEY" }}
-BASEDOMAIN = {{ getenv "BASEDOMAIN" }}
+SECRET_KEY = '{{ getenv "SECRET_KEY" }}'
+BASEDOMAIN = '{{ getenv "BASEDOMAIN" }}'
 
 ALLOWED_HOSTS=['localhost', '127.0.0.1', '[::1]']
 

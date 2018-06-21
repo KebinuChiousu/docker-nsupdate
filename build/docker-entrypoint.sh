@@ -6,4 +6,4 @@ python3 manage.py collectstatic
 python3 manage.py migrate
 python3 manage.py createsuperuser
 
-uwsgi --ini uwsgi.ini
+uwsgi --uid=www-data --gid=www-data --ini uwsgi.ini
